@@ -1,27 +1,26 @@
-#ifndef VARIADIC_H
-#define VARIADIC_H
-#include <stdarg.h>
-
-int sum_them_all(const unsigned int n, ...);
-void print_numbers(const char *separator, const unsigned int n, ...);
-void print_strings(const char *separator, const unsigned int n, ...);
-void print_all(const char * const format, ...);
-int _putchar(char c);
-
-void print_int(va_list list);
-void print_float(va_list list);
-void print_char(va_list list);
-void print_str(va_list list);
+#include "variadic_functions.h"
 
 /**
- * struct printTypeStruct - structure definition of a printTypeStruct
- * @type: type
- * @printer: function to print
+ * sum_them_all - returns the sum of all its parameters.
+ * @n: amount of the arguments.
+ *
+ * Return: sum of its parameters.
  */
-typedef struct printTypeStruct
+int sum_them_all(const unsigned int n, ...)
 {
-char *type;
-void (*printer)(va_list);
-} printTypeStruct;
+	va_list valist;
+	unsigned int i;
+	int sum = 0;
 
-#endif
+	if (n == 0)
+		return (0);
+
+	va_start(valist, n);
+
+	for (i = 0; i < n; i++)
+		sum += va_arg(valist, int);
+
+	va_end(valist);
+
+	return (sum);
+}
